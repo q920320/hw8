@@ -1,0 +1,67 @@
+---
+title: "homework8"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r basic setup, message=FALSE, echo=F, eval=T}
+library(dplyr); library(stringr); library(ggplot2); library(plotly); library(lubridate); library(readr); library(tidyr); library(showtext)
+
+font_add("QYuan","cwTeXQYuan-Medium.ttf") # 新增字體
+showtext_auto(enable=TRUE) #啟用字體
+theme_set(theme_classic())
+knitr::opts_chunk$set(out.width='80%', fig.asp=.75, fig.align='center', fig.showtext=T)
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### 報名時序統計
+
+```{r}
+load("ufo_plot.RDA")
+ufo_plot$timing$movie
+ufo_plot$timing$toys
+ufo_plot$timing$Xmas
+```
+
+Column {.tabset}
+-----------------------------------------------------------------------
+
+### 報名方式(玩具節)
+
+```{r}
+#toysphoto
+x <- paste(ufo_plot$origin$toys$data$origin,round(ufo_plot$origin$toys$data$人數/ufo_plot$origin$toys$data$總數*100,1),"%")
+toysphoto <- pie(ufo_plot$origin$toys$data$人數,labels=x,lty=2,border="000000",col=c("#3b5998","#FFFF00","#008800"),main="玩具節報名方式分布")
+
+```
+
+
+### 報名方式(電影)
+
+```{r}
+#moviephoto
+y <- paste(ufo_plot$origin$movie$data$origin,round(ufo_plot$origin$movie$data$人數/ufo_plot$origin$movie$data$總數*100,1),"%")
+moviephoto <- pie(ufo_plot$origin$movie$data$人數,labels=y,lty=2,border="000000",col=c("#3b5998","#FFFF00","#008800"),main="電影節報名方式分布")
+
+```
+
+### 報名方式(聖誕)
+
+```{r}
+#Xmasphoto
+z <- paste(ufo_plot$origin$Xmas$data$origin,round(ufo_plot$origin$Xmas$data$人數/ufo_plot$origin$Xmas$data$總數*100,1),"%")
+Xmasphoto <- pie(ufo_plot$origin$Xmas$data$人數,labels=z,lty=2,border="000000",col=c("#3b5998","#FFFF00","#008800"),main="聖誕節報名方式分布")
+
+```
+
+### 人數
+
+青銀共賞電影共計 45 人
+
+北大玩具節共計 99 人
+
+聖誕點燈暨北大管樂節共計 41 人
